@@ -156,7 +156,7 @@ public class Question {
     // Field and value are named if bad for tracing
 
     private static String requireText(String field, String value) {
-        if (value == null) {
+        if (value == null || value == "") {
             throw new IllegalArgumentException(field + " missing");
         }
         return value;
