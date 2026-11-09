@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class main {
+public class Main {
 
-    public static void Main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         LocalDate endDate = LocalDate.now(); // returns today as the most recent day
         LocalDate startDate = LocalDate.now().minusDays(7); // minus one week (for testing)
 
@@ -25,6 +25,7 @@ public class main {
         String line = null;
         while ((line = br.readLine()) != null) {
             // class builder goes here
+            Question q = new Question();
             Pattern p = Pattern.compile("\"[^\"]*\":\"(.*?)\"(?=,\"|$)");
             Matcher m = p.matcher(line);
             List<String> values = new ArrayList<>();
@@ -32,16 +33,17 @@ public class main {
                 values.add(m.group(1));
             }
 
-            Question.setDocumentId(values.indexOf(0));
+            q.setDocumentId(values.get(0));
 
-            // call printer
-            System.out.println(Question.documentId + Question.documentType + Question.reference + Question.tablerName
-                    + Question.tablerTitle + Question.tablerAffiliationId + Question.tablerPersonId
-                    + Question.tabledDate + Question.questionText + Question.answerByDate + Question.priorityRequest
-                    + Question.ministerTitle + Question.ministerAffiliationId + Question.ministerPersonId
-                    + Question.department + Question.departmentID + Question.documentId + Question.documentType
-                    + Question.reference);
+                        // call printer
+            System.out.println(q.documentId + q.documentType + q.reference + q.tablerName
+                    + q.tablerTitle + q.tablerAffiliationId + q.tablerPersonId
+                    + q.tabledDate + q.questionText + q.answerByDate + q.priorityRequest
+                    + q.ministerTitle + q.ministerAffiliationId + q.ministerPersonId
+                    + q.department + q.departmentID + q.documentId + q.documentType
+                    + q.reference);
         }
+        
         br.close();
 
     }

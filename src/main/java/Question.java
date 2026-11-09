@@ -1,153 +1,192 @@
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Question
  */
 public class Question {
 
-    public static int documentId;
-    public static String documentType;
-    public static String reference;
-    public static String tablerName;
-    public static String tablerTitle;
-    public static int tablerAffiliationId;
-    public static int tablerPersonId;
-    public static Date tabledDate;
-    public static String questionText;
-    public static Date answerByDate;
-    public static boolean priorityRequest;
-    public static String ministerTitle;
-    public static int ministerAffiliationId;
-    public static int ministerPersonId;
-    public static String department;
-    public static int departmentID;
+    public int documentId;
+    public String documentType;
+    public String reference;
+    public String tablerName;
+    public String tablerTitle;
+    public int tablerAffiliationId;
+    public int tablerPersonId;
+    public LocalDate tabledDate;
+    public String questionText;
+    public LocalDate answerByDate;
+    public boolean priorityRequest;
+    public String ministerTitle;
+    public int ministerAffiliationId;
+    public int ministerPersonId;
+    public String department;
+    public int departmentID;
 
-    public static int getDocumentId() {
+    public int getDocumentId() {
         return documentId;
     }
 
-    public static void setDocumentId(int documentId) {
-        Question.documentId = documentId;
+    public void setDocumentId(String documentId) {
+        this.documentId = parseInt("DocumentId", documentId);
     }
 
-    public static String getDocumentType() {
+    public String getDocumentType() {
         return documentType;
     }
 
-    public static void setDocumentType(String documentType) {
-        Question.documentType = documentType;
+    public void setDocumentType(String documentType) {
+        this.documentType = requireText("DocumentType", documentType);
     }
 
-    public static String getReference() {
+    public String getReference() {
         return reference;
     }
 
-    public static void setReference(String reference) {
-        Question.reference = reference;
+    public void setReference(String reference) {
+        this.reference = requireText("Reference", reference);
     }
 
-    public static String getTablerName() {
+    public String getTablerName() {
         return tablerName;
     }
 
-    public static void setTablerName(String tablerName) {
-        Question.tablerName = tablerName;
+    public void setTablerName(String tablerName) {
+        this.tablerName = requireText("TablerName", tablerName);
     }
 
-    public static String getTablerTitle() {
+    public String getTablerTitle() {
         return tablerTitle;
     }
 
-    public static void setTablerTitle(String tablerTitle) {
-        Question.tablerTitle = tablerTitle;
+    public void setTablerTitle(String tablerTitle) {
+        this.tablerTitle = requireText("TablerTitle", tablerTitle);
     }
 
-    public static int getTablerAffiliationId() {
+    public int getTablerAffiliationId() {
         return tablerAffiliationId;
     }
 
-    public static void setTablerAffiliationId(int tablerAffiliationId) {
-        Question.tablerAffiliationId = tablerAffiliationId;
+    public void setTablerAffiliationId(String tablerAffiliationId) {
+        this.tablerAffiliationId = parseInt("TablerAffiliationId", tablerAffiliationId);
     }
 
-    public static int getTablerPersonId() {
+    public int getTablerPersonId() {
         return tablerPersonId;
     }
 
-    public static void setTablerPersonId(int tablerPersonId) {
-        Question.tablerPersonId = tablerPersonId;
+    public void setTablerPersonId(String tablerPersonId) {
+        this.tablerPersonId = parseInt("TablerPersonId", tablerPersonId);
     }
 
-    public static Date getTabledDate() {
+    public LocalDate getTabledDate() {
         return tabledDate;
     }
 
-    public static void setTabledDate(Date tabledDate) {
-        Question.tabledDate = tabledDate;
+    public void setTabledDate(String tabledDate) {
+        this.tabledDate = parseDate("TabledDate", tabledDate);
     }
 
-    public static String getQuestionText() {
+    public String getQuestionText() {
         return questionText;
     }
 
-    public static void setQuestionText(String questionText) {
-        Question.questionText = questionText;
+    public void setQuestionText(String questionText) {
+        this.questionText = requireText("QuestionText", questionText);
     }
 
-    public static Date getAnswerByDate() {
+    public LocalDate getAnswerByDate() {
         return answerByDate;
     }
 
-    public static void setAnswerByDate(Date answerByDate) {
-        Question.answerByDate = answerByDate;
+    public void setAnswerByDate(String answerByDate) {
+        this.answerByDate = parseDate("AnswerByDate", answerByDate);
     }
 
-    public static boolean isPriorityRequest() {
+    public boolean isPriorityRequest() {
         return priorityRequest;
     }
 
-    public static void setPriorityRequest(boolean priorityRequest) {
-        Question.priorityRequest = priorityRequest;
+    public void setPriorityRequest(String priorityRequest) {
+        this.priorityRequest = parseBoolean("PriorityRequest", priorityRequest);
     }
 
-    public static String getMinisterTitle() {
+    public String getMinisterTitle() {
         return ministerTitle;
     }
 
-    public static void setMinisterTitle(String ministerTitle) {
-        Question.ministerTitle = ministerTitle;
+    public void setMinisterTitle(String ministerTitle) {
+        this.ministerTitle = requireText("MinisterTitle", ministerTitle);
     }
 
-    public static int getMinisterAffiliationId() {
+    public int getMinisterAffiliationId() {
         return ministerAffiliationId;
     }
 
-    public static void setMinisterAffiliationId(int ministerAffiliationId) {
-        Question.ministerAffiliationId = ministerAffiliationId;
+    public void setMinisterAffiliationId(String ministerAffiliationId) {
+        this.ministerAffiliationId = parseInt("MinisterAffiliationId", ministerAffiliationId);
     }
 
-    public static int getMinisterPersonId() {
+    public int getMinisterPersonId() {
         return ministerPersonId;
     }
 
-    public static void setMinisterPersonId(int ministerPersonId) {
-        Question.ministerPersonId = ministerPersonId;
+    public void setMinisterPersonId(String ministerPersonId) {
+        this.ministerPersonId = parseInt("MinisterPersonId", ministerPersonId);
     }
 
-    public static String getDepartment() {
+    public String getDepartment() {
         return department;
     }
 
-    public static void setDepartment(String department) {
-        Question.department = department;
+    public void setDepartment(String department) {
+        this.department = requireText("Department", department);
     }
 
-    public static int getDepartmentID() {
+    public int getDepartmentID() {
         return departmentID;
     }
 
-    public static void setDepartmentID(int departmentID) {
-        Question.departmentID = departmentID;
+    public void setDepartmentID(String departmentID) {
+        this.departmentID = parseInt("DepartmentID", departmentID);
+    }
+
+    // IllegalArgumentException for the setters
+    // Field and value are named if bad for tracing
+
+    private static String requireText(String field, String value) {
+        if (value == null) {
+            throw new IllegalArgumentException(field + " missing");
+        }
+        return value;
+    }
+
+    private static int parseInt(String field, String value) {
+        requireText(field, value);
+        try {
+            return Integer.parseInt(value.trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(field + " is not a whole number: \"" + value + "\"", e);
+        }
+    }
+
+    // Trims API's YYYY-MM-DDT00:00:00+00:00 formatting to keep only YYYY-MM-DD
+    private static LocalDate parseDate(String field, String value) {
+        requireText(field, value);
+        try {
+            return OffsetDateTime.parse(value.trim()).toLocalDate();
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException(field + " is not a valid date: \"" + value + "\"", e);
+        }
+    }
+
+    private static boolean parseBoolean(String field, String value) {
+        String v = requireText(field, value).trim().toLowerCase();
+        if (!v.equals("true") && !v.equals("false")) {
+            throw new IllegalArgumentException(field + " is not true/false: \"" + value + "\"");
+        }
+        return Boolean.parseBoolean(v);
     }
 
 }
