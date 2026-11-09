@@ -36,12 +36,12 @@ public class Main {
             q.setDocumentId(values.get(0));
 
                         // call printer
-            System.out.println(q.documentId + q.documentType + q.reference + q.tablerName
-                    + q.tablerTitle + q.tablerAffiliationId + q.tablerPersonId
-                    + q.tabledDate + q.questionText + q.answerByDate + q.priorityRequest
-                    + q.ministerTitle + q.ministerAffiliationId + q.ministerPersonId
-                    + q.department + q.departmentID + q.documentId + q.documentType
-                    + q.reference);
+            System.out.println(values.size() + " | " +q.documentId +" | "+ q.documentType +" | "+ q.reference +" | "+ q.tablerName
+                    +" | "+ q.tablerTitle +" | "+ q.tablerAffiliationId +" | "+ q.tablerPersonId
+                    +" | "+ q.tabledDate +" | "+ q.questionText +" | "+ q.answerByDate +" | "+ q.priorityRequest
+                    +" | "+ q.ministerTitle +" | "+ q.ministerAffiliationId +" | "+ q.ministerPersonId
+                    +" | "+ q.department +" | "+ q.departmentID +" | "+ q.documentId +" | "+ q.documentType
+                    +" | "+ q.reference);
         }
         
         br.close();
