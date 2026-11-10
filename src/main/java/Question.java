@@ -15,6 +15,7 @@ public class Question {
     public int tablerAffiliationId;
     public int tablerPersonId;
     public LocalDate tabledDate;
+    public LocalDate answeredOnDate;
     public String questionText;
     public LocalDate answerByDate;
     public boolean priorityRequest;
@@ -22,7 +23,10 @@ public class Question {
     public int ministerAffiliationId;
     public int ministerPersonId;
     public String department;
+    public String answerPlainText;
     public int departmentID;
+    public String answerOpenXml;
+    public String answerHtml;
 
     public int getDocumentId() {
         return documentId;
@@ -88,6 +92,15 @@ public class Question {
         this.tabledDate = parseDate("TabledDate", tabledDate);
     }
 
+    public LocalDate getAnsweredOnDate() {
+        return answeredOnDate;
+    }
+
+    // Unanswered questions have no answer date, so a missing value is stored as null
+    public void setAnsweredOnDate(String answeredOnDate) {
+        this.answeredOnDate = isMissing(answeredOnDate) ? null : parseDate("AnsweredOnDate", answeredOnDate);
+    }
+
     public String getQuestionText() {
         return questionText;
     }
@@ -144,12 +157,37 @@ public class Question {
         this.department = requireText("Department", department);
     }
 
+    public String getAnswerPlainText() {
+        return answerPlainText;
+    }
+
+    // The answer fields are empty until a question is answered, so a missing value is stored as null
+    public void setAnswerPlainText(String answerPlainText) {
+        this.answerPlainText = isMissing(answerPlainText) ? null : answerPlainText.strip();
+    }
+
     public int getDepartmentID() {
         return departmentID;
     }
 
     public void setDepartmentID(String departmentID) {
         this.departmentID = parseInt("DepartmentID", departmentID);
+    }
+
+    public String getAnswerOpenXml() {
+        return answerOpenXml;
+    }
+
+    public void setAnswerOpenXml(String answerOpenXml) {
+        this.answerOpenXml = isMissing(answerOpenXml) ? null : answerOpenXml;
+    }
+
+    public String getAnswerHtml() {
+        return answerHtml;
+    }
+
+    public void setAnswerHtml(String answerHtml) {
+        this.answerHtml = isMissing(answerHtml) ? null : answerHtml;
     }
 
     // IllegalArgumentException for the setters
@@ -160,6 +198,10 @@ public class Question {
             throw new IllegalArgumentException(field + " missing");
         }
         return value;
+    }
+
+    private static boolean isMissing(String value) {
+        return value == null || value.isBlank();
     }
 
     private static int parseInt(String field, String value) {
