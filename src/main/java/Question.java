@@ -1,7 +1,4 @@
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeParseException;
-
 
 public class Question {
 
@@ -17,6 +14,8 @@ public class Question {
     public String questionText;
     public LocalDate answerByDate;
     public boolean priorityRequest;
+    public Minister minister;
+
 
     public String department;
     public String answerPlainText;
@@ -94,7 +93,8 @@ public class Question {
 
     // Unanswered store null for answeredOnDate
     public void setAnsweredOnDate(String answeredOnDate) {
-        this.answeredOnDate = SetterHelperMethods.isMissing(answeredOnDate) ? null : parseDate("AnsweredOnDate", answeredOnDate);
+        this.answeredOnDate = SetterHelperMethods.isMissing(answeredOnDate) ? null
+                : SetterHelperMethods.parseDate("AnsweredOnDate", answeredOnDate);
     }
 
     public String getQuestionText() {
@@ -163,5 +163,13 @@ public class Question {
     public void setAnswerHtml(String answerHtml) {
         this.answerHtml = SetterHelperMethods.isMissing(answerHtml) ? null : answerHtml;
     }
-}
 
+    public Minister getMinister() {
+        return minister;
+    }
+
+    public void setMinister(Minister minister) {
+        this.minister = minister;
+    }
+
+}

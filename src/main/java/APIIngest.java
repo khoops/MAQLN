@@ -27,18 +27,18 @@ public class APIIngest {
                 int key = node.path("DocumentId").asInt();
                 if (!questionMap.containsKey(key)) {
                     Question q = new Question();
-                    applyFields(q, node);
+                    applyQuestionFields(q, node);
                     questionMap.put(key, q);
 
                     internalID++;
-                    System.out.println("#" + internalID + " | " + q.documentId + " | ");
+                    System.out.println("#" + internalID + " | " + q.documentId + " | " + q.minister.title);
                 } else {
                     // finds extant instance of Question at given key
                     Question extant = questionMap.get(key);
-                    applyFields(extant, node);
+                    applyQuestionFields(extant, node);
 
                     internalID++;
-                    System.out.print("%" + internalID + " | " + extant.documentId + " | ");
+                    System.out.print("%" + internalID + " | " + extant.documentId + " | " + extant.minister.title);
                     if (extant.answerPlainText != null) {
                         System.out.print(extant.answerPlainText.substring(0, 54));
                     } else {
@@ -50,9 +50,18 @@ public class APIIngest {
         return questionMap;
     }
 
+    // creates a Minister
+    private static Minister applyMinisterFields(Question q, JsonNode node) {
+        Minister m = new Minister();
+        m.setMinisterTitle(node.path("MinisterTitle").asText());
+        m.setMinisterAffiliationId(node.path("MinisterAffiliationId").asText());
+        m.setMinisterPersonId(node.path("MinisterPersonId").asText());
+        return m;
+    }
+
     // Maps JSON fields to the setters.
 
-    private static void applyFields(Question q, JsonNode node) {
+    private static void applyQuestionFields(Question q, JsonNode node) {
         q.setDocumentId(node.path("DocumentId").asText());
         q.setDocumentType(node.path("DocumentType").asText());
         q.setReference(node.path("Reference").asText());
@@ -65,13 +74,12 @@ public class APIIngest {
         q.setQuestionText(node.path("QuestionText").asText());
         q.setAnswerByDate(node.path("AnswerByDate").asText());
         q.setPriorityRequest(node.path("PriorityRequest").asText());
-        q.setMinisterTitle(node.path("MinisterTitle").asText());
-        q.setMinisterAffiliationId(node.path("MinisterAffiliationId").asText());
-        q.setMinisterPersonId(node.path("MinisterPersonId").asText());
+        q.setMinister(applyMinisterFields(q, node));
         q.setDepartment(node.path("Department").asText());
         q.setDepartmentID(node.path("DepartmentID").asText());
         q.setAnswerPlainText(node.path("AnswerPlainText").asText());
         q.setAnswerOpenXml(node.path("AnswerOpenXml").asText());
         q.setAnswerHtml(node.path("AnswerHtml").asText());
     }
+
 }
