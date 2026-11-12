@@ -31,14 +31,14 @@ public class APIIngest {
                     questionMap.put(key, q);
 
                     internalID++;
-                    System.out.println("#" + internalID + " | " + q.documentId + " | " + q.minister.title);
+                    System.out.println("#" + internalID + " | " + q.documentId + " | " + q.minister.ministerTitle);
                 } else {
                     // finds extant instance of Question at given key
                     Question extant = questionMap.get(key);
                     applyQuestionFields(extant, node);
 
                     internalID++;
-                    System.out.print("%" + internalID + " | " + extant.documentId + " | " + extant.minister.title);
+                    System.out.print("%" + internalID + " | " + extant.documentId + " | " + extant.minister.ministerTitle);
                     if (extant.answerPlainText != null) {
                         System.out.print(extant.answerPlainText.substring(0, 54));
                     } else {

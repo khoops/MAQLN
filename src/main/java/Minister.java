@@ -1,8 +1,4 @@
 public class Minister {
-    Integer personId;
-    int affiliationId;
-    String title;
-
     public String ministerTitle;
     public int ministerAffiliationId;
     public int ministerPersonId;
