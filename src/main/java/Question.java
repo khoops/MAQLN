@@ -2,9 +2,7 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeParseException;
 
-/**
- * Question
- */
+
 public class Question {
 
     public int documentId;
@@ -19,9 +17,7 @@ public class Question {
     public String questionText;
     public LocalDate answerByDate;
     public boolean priorityRequest;
-    public String ministerTitle;
-    public int ministerAffiliationId;
-    public int ministerPersonId;
+
     public String department;
     public String answerPlainText;
     public int departmentID;
@@ -33,7 +29,7 @@ public class Question {
     }
 
     public void setDocumentId(String documentId) {
-        this.documentId = parseInt("DocumentId", documentId);
+        this.documentId = SetterHelperMethods.parseInt("DocumentId", documentId);
     }
 
     public String getDocumentType() {
@@ -41,7 +37,7 @@ public class Question {
     }
 
     public void setDocumentType(String documentType) {
-        this.documentType = requireText("DocumentType", documentType);
+        this.documentType = SetterHelperMethods.requireText("DocumentType", documentType);
     }
 
     public String getReference() {
@@ -49,7 +45,7 @@ public class Question {
     }
 
     public void setReference(String reference) {
-        this.reference = requireText("Reference", reference);
+        this.reference = SetterHelperMethods.requireText("Reference", reference);
     }
 
     public String getTablerName() {
@@ -57,7 +53,7 @@ public class Question {
     }
 
     public void setTablerName(String tablerName) {
-        this.tablerName = requireText("TablerName", tablerName);
+        this.tablerName = SetterHelperMethods.requireText("TablerName", tablerName);
     }
 
     public String getTablerTitle() {
@@ -65,7 +61,7 @@ public class Question {
     }
 
     public void setTablerTitle(String tablerTitle) {
-        this.tablerTitle = requireText("TablerTitle", tablerTitle);
+        this.tablerTitle = SetterHelperMethods.requireText("TablerTitle", tablerTitle);
     }
 
     public int getTablerAffiliationId() {
@@ -73,7 +69,7 @@ public class Question {
     }
 
     public void setTablerAffiliationId(String tablerAffiliationId) {
-        this.tablerAffiliationId = parseInt("TablerAffiliationId", tablerAffiliationId);
+        this.tablerAffiliationId = SetterHelperMethods.parseInt("TablerAffiliationId", tablerAffiliationId);
     }
 
     public int getTablerPersonId() {
@@ -81,7 +77,7 @@ public class Question {
     }
 
     public void setTablerPersonId(String tablerPersonId) {
-        this.tablerPersonId = parseInt("TablerPersonId", tablerPersonId);
+        this.tablerPersonId = SetterHelperMethods.parseInt("TablerPersonId", tablerPersonId);
     }
 
     public LocalDate getTabledDate() {
@@ -89,16 +85,16 @@ public class Question {
     }
 
     public void setTabledDate(String tabledDate) {
-        this.tabledDate = parseDate("TabledDate", tabledDate);
+        this.tabledDate = SetterHelperMethods.parseDate("TabledDate", tabledDate);
     }
 
     public LocalDate getAnsweredOnDate() {
         return answeredOnDate;
     }
 
-    // Unanswered questions have no answer date, so a missing value is stored as null
+    // Unanswered store null for answeredOnDate
     public void setAnsweredOnDate(String answeredOnDate) {
-        this.answeredOnDate = isMissing(answeredOnDate) ? null : parseDate("AnsweredOnDate", answeredOnDate);
+        this.answeredOnDate = SetterHelperMethods.isMissing(answeredOnDate) ? null : parseDate("AnsweredOnDate", answeredOnDate);
     }
 
     public String getQuestionText() {
@@ -106,7 +102,7 @@ public class Question {
     }
 
     public void setQuestionText(String questionText) {
-        this.questionText = requireText("QuestionText", questionText);
+        this.questionText = SetterHelperMethods.requireText("QuestionText", questionText);
     }
 
     public LocalDate getAnswerByDate() {
@@ -114,7 +110,7 @@ public class Question {
     }
 
     public void setAnswerByDate(String answerByDate) {
-        this.answerByDate = parseDate("AnswerByDate", answerByDate);
+        this.answerByDate = SetterHelperMethods.parseDate("AnswerByDate", answerByDate);
     }
 
     public boolean isPriorityRequest() {
@@ -122,31 +118,7 @@ public class Question {
     }
 
     public void setPriorityRequest(String priorityRequest) {
-        this.priorityRequest = parseBoolean("PriorityRequest", priorityRequest);
-    }
-
-    public String getMinisterTitle() {
-        return ministerTitle;
-    }
-
-    public void setMinisterTitle(String ministerTitle) {
-        this.ministerTitle = requireText("MinisterTitle", ministerTitle);
-    }
-
-    public int getMinisterAffiliationId() {
-        return ministerAffiliationId;
-    }
-
-    public void setMinisterAffiliationId(String ministerAffiliationId) {
-        this.ministerAffiliationId = parseInt("MinisterAffiliationId", ministerAffiliationId);
-    }
-
-    public int getMinisterPersonId() {
-        return ministerPersonId;
-    }
-
-    public void setMinisterPersonId(String ministerPersonId) {
-        this.ministerPersonId = parseInt("MinisterPersonId", ministerPersonId);
+        this.priorityRequest = SetterHelperMethods.parseBoolean("PriorityRequest", priorityRequest);
     }
 
     public String getDepartment() {
@@ -154,16 +126,16 @@ public class Question {
     }
 
     public void setDepartment(String department) {
-        this.department = requireText("Department", department);
+        this.department = SetterHelperMethods.requireText("Department", department);
     }
 
     public String getAnswerPlainText() {
         return answerPlainText;
     }
 
-    // The answer fields are empty until a question is answered, so a missing value is stored as null
+    // If unanswered, null. Also removes trailing whitespace with strip
     public void setAnswerPlainText(String answerPlainText) {
-        this.answerPlainText = isMissing(answerPlainText) ? null : answerPlainText.strip();
+        this.answerPlainText = SetterHelperMethods.isMissing(answerPlainText) ? null : answerPlainText.strip();
     }
 
     public int getDepartmentID() {
@@ -171,64 +143,25 @@ public class Question {
     }
 
     public void setDepartmentID(String departmentID) {
-        this.departmentID = parseInt("DepartmentID", departmentID);
+        this.departmentID = SetterHelperMethods.parseInt("DepartmentID", departmentID);
     }
 
     public String getAnswerOpenXml() {
         return answerOpenXml;
     }
 
+    // If unanswered, null
     public void setAnswerOpenXml(String answerOpenXml) {
-        this.answerOpenXml = isMissing(answerOpenXml) ? null : answerOpenXml;
+        this.answerOpenXml = SetterHelperMethods.isMissing(answerOpenXml) ? null : answerOpenXml;
     }
 
     public String getAnswerHtml() {
         return answerHtml;
     }
 
+    // If unanswered, null
     public void setAnswerHtml(String answerHtml) {
-        this.answerHtml = isMissing(answerHtml) ? null : answerHtml;
+        this.answerHtml = SetterHelperMethods.isMissing(answerHtml) ? null : answerHtml;
     }
-
-    // IllegalArgumentException for the setters
-    // Field and value are named if bad for tracing
-
-    private static String requireText(String field, String value) {
-        if (value == null || value == "") {
-            throw new IllegalArgumentException(field + " missing");
-        }
-        return value;
-    }
-
-    private static boolean isMissing(String value) {
-        return value == null || value.isBlank();
-    }
-
-    private static int parseInt(String field, String value) {
-        requireText(field, value);
-        try {
-            return Integer.parseInt(value.trim());
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(field + " is not a whole number: \"" + value + "\"", e);
-        }
-    }
-
-    // Trims API's YYYY-MM-DDT00:00:00+00:00 formatting to keep only YYYY-MM-DD
-    private static LocalDate parseDate(String field, String value) {
-        requireText(field, value);
-        try {
-            return OffsetDateTime.parse(value.trim()).toLocalDate();
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException(field + " is not a valid date: \"" + value + "\"", e);
-        }
-    }
-
-    private static boolean parseBoolean(String field, String value) {
-        String v = requireText(field, value).trim().toLowerCase();
-        if (!v.equals("true") && !v.equals("false")) {
-            throw new IllegalArgumentException(field + " is not true/false: \"" + value + "\"");
-        }
-        return Boolean.parseBoolean(v);
-    }
-
 }
+

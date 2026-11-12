@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         LocalDate endDate = LocalDate.now(); // returns today as the most recent day
-        LocalDate startDate = LocalDate.now().minusDays(1); // minus one day (for testing)
+        LocalDate startDate = LocalDate.now().minusDays(4); // minus n days (for testing)
 
         Map<Integer, Question> questionMap = new HashMap<>();
 

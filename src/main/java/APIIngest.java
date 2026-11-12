@@ -23,7 +23,7 @@ public class APIIngest {
             int internalID = 0;
 
             for (JsonNode node : questions) {
-                //Defines key for hasmap from documentId as int
+                // Defines key for hasmap from documentId as int
                 int key = node.path("DocumentId").asInt();
                 if (!questionMap.containsKey(key)) {
                     Question q = new Question();
@@ -33,12 +33,17 @@ public class APIIngest {
                     internalID++;
                     System.out.println("#" + internalID + " | " + q.documentId + " | ");
                 } else {
-                    //finds extant instance of Question at given key
+                    // finds extant instance of Question at given key
                     Question extant = questionMap.get(key);
                     applyFields(extant, node);
 
                     internalID++;
-                    System.out.println("%" + internalID + " | " + extant.documentId + " | ");
+                    System.out.print("%" + internalID + " | " + extant.documentId + " | ");
+                    if (extant.answerPlainText != null) {
+                        System.out.print(extant.answerPlainText.substring(0, 54));
+                    } else {
+                        System.out.println("(present on, but no answer from, AnswerByAPI)");
+                    }
                 }
             }
         }
@@ -46,7 +51,7 @@ public class APIIngest {
     }
 
     // Maps JSON fields to the setters.
-   
+
     private static void applyFields(Question q, JsonNode node) {
         q.setDocumentId(node.path("DocumentId").asText());
         q.setDocumentType(node.path("DocumentType").asText());
