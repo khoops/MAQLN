@@ -1,4 +1,6 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Question {
 
@@ -14,8 +16,12 @@ public class Question {
     public String questionText;
     public LocalDate answerByDate;
     public boolean priorityRequest;
-    public Minister minister;
 
+    // to handle multiple minister. It is possible for multiple ministers to recieve
+    // the same
+    // question, which would typically be left of two questiosn.
+    // This allows for a single record to have multiple listed ministers.
+    public ArrayList<Minister> ministers = new ArrayList<>();
 
     public String department;
     public String answerPlainText;
@@ -164,12 +170,17 @@ public class Question {
         this.answerHtml = SetterHelperMethods.isMissing(answerHtml) ? null : answerHtml;
     }
 
-    public Minister getMinister() {
-        return minister;
+    public List<Minister> getMinisters() {
+        return ministers;
     }
 
-    public void setMinister(Minister minister) {
-        this.minister = minister;
+    public void setMinister(Minister m) {
+        for (Minister existing : ministers) {
+            if (existing.ministerPersonId == m.ministerPersonId
+                    && existing.ministerAffiliationId == m.ministerAffiliationId) {
+                return;
+            }
+        }
+        ministers.add(m);
     }
-
 }

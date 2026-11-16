@@ -20,6 +20,7 @@ public class APIIngest {
             JsonNode root = mapper.readTree(questionData); // determines the highest level node in the schema
             JsonNode questions = root.path("QuestionsList").path("Question");
 
+            // Internal ID for internal use only
             int internalID = 0;
 
             for (JsonNode node : questions) {
@@ -31,18 +32,28 @@ public class APIIngest {
                     questionMap.put(key, q);
 
                     internalID++;
-                    System.out.println("#" + internalID + " | " + q.documentId + " | " + q.minister.ministerTitle);
+                    System.out.print("#" + internalID + " | " + q.documentId + " | ");
+                    for (Minister m : q.getMinisters()) {
+                        System.out.println(m.ministerPersonId);
+                    }
+
                 } else {
                     // finds extant instance of Question at given key
                     Question extant = questionMap.get(key);
                     applyQuestionFields(extant, node);
 
                     internalID++;
-                    System.out.print("%" + internalID + " | " + extant.documentId + " | " + extant.minister.ministerTitle);
+                    
+                    //Debugging printout
+                    System.out.print(
+                            "%" + internalID + " | " + extant.documentId + " | ");
+                    for (Minister m : extant.getMinisters()) {
+                        System.out.print(m.ministerPersonId + " ");
+                    }
                     if (extant.answerPlainText != null) {
                         System.out.print(extant.answerPlainText.substring(0, 54));
                     } else {
-                        System.out.println("(present on, but no answer from, AnswerByAPI)");
+                        System.out.println(" - (present on, but no answer from, AnswerByAPI)");
                     }
                 }
             }
