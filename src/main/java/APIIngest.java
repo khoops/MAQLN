@@ -76,23 +76,59 @@ public class APIIngest {
 
     private static void applyQuestionFields(Question q, JsonNode node) {
         q.setDocumentId(node.path("DocumentId").asText());
-        q.setDocumentType(node.path("DocumentType").asText());
-        q.setReference(node.path("Reference").asText());
-        q.setTablerName(node.path("TablerName").asText());
-        q.setTablerTitle(node.path("TablerTitle").asText());
-        q.setTablerAffiliationId(node.path("TablerAffiliationId").asText());
-        q.setTablerPersonId(node.path("TablerPersonId").asText());
-        q.setTabledDate(node.path("TabledDate").asText());
-        q.setAnsweredOnDate(node.path("AnsweredOnDate").asText());
-        q.setQuestionText(node.path("QuestionText").asText());
-        q.setAnswerByDate(node.path("AnswerByDate").asText());
-        q.setPriorityRequest(node.path("PriorityRequest").asText());
+        // Only write a field if it is still empty on the stored Question:
+        // null for String/LocalDate, 0 for int, false for boolean.
+        if (SetterHelperMethods.isMissing(q.getDocumentType())) {
+            q.setDocumentType(node.path("DocumentType").asText());
+        }
+        if (SetterHelperMethods.isMissing(q.getReference())) {
+            q.setReference(node.path("Reference").asText());
+        }
+        if (SetterHelperMethods.isMissing(q.getTablerName())) {
+            q.setTablerName(node.path("TablerName").asText());
+        }
+        if (SetterHelperMethods.isMissing(q.getTablerTitle())) {
+            q.setTablerTitle(node.path("TablerTitle").asText());
+        }
+        if (q.getTablerAffiliationId() == 0) {
+            q.setTablerAffiliationId(node.path("TablerAffiliationId").asText());
+        }
+        if (q.getTablerPersonId() == 0) {
+            q.setTablerPersonId(node.path("TablerPersonId").asText());
+        }
+        if (q.getTabledDate() == null) {
+            q.setTabledDate(node.path("TabledDate").asText());
+        }
+        if (q.getAnsweredOnDate() == null) {
+            q.setAnsweredOnDate(node.path("AnsweredOnDate").asText());
+        }
+        if (SetterHelperMethods.isMissing(q.getQuestionText())) {
+            q.setQuestionText(node.path("QuestionText").asText());
+        }
+        if (q.getAnswerByDate() == null) {
+            q.setAnswerByDate(node.path("AnswerByDate").asText());
+        }
+        // a boolean has no empty value, so false is treated as not yet set
+        if (!q.isPriorityRequest()) {
+            q.setPriorityRequest(node.path("PriorityRequest").asText());
+        }
+        // the ministers list has its own duplicate check, so always offer the minister
         q.addMinister(applyMinisterFields(q, node));
-        q.setDepartment(node.path("Department").asText());
-        q.setDepartmentID(node.path("DepartmentID").asText());
-        q.setAnswerPlainText(node.path("AnswerPlainText").asText());
-        q.setAnswerOpenXml(node.path("AnswerOpenXml").asText());
-        q.setAnswerHtml(node.path("AnswerHtml").asText());
+        if (SetterHelperMethods.isMissing(q.getDepartment())) {
+            q.setDepartment(node.path("Department").asText());
+        }
+        if (q.getDepartmentID() == 0) {
+            q.setDepartmentID(node.path("DepartmentID").asText());
+        }
+        if (SetterHelperMethods.isMissing(q.getAnswerPlainText())) {
+            q.setAnswerPlainText(node.path("AnswerPlainText").asText());
+        }
+        if (SetterHelperMethods.isMissing(q.getAnswerOpenXml())) {
+            q.setAnswerOpenXml(node.path("AnswerOpenXml").asText());
+        }
+        if (SetterHelperMethods.isMissing(q.getAnswerHtml())) {
+            q.setAnswerHtml(node.path("AnswerHtml").asText());
+        }
     }
 
 }
