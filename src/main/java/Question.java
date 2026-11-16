@@ -174,7 +174,7 @@ public class Question {
         return ministers;
     }
 
-    public void setMinister(Minister m) {
+    public void addMinister(Minister m) {
         for (Minister existing : ministers) {
             if (existing.ministerPersonId == m.ministerPersonId
                     && existing.ministerAffiliationId == m.ministerAffiliationId) {

@@ -32,6 +32,8 @@ public class APIIngest {
                     questionMap.put(key, q);
 
                     internalID++;
+
+                    // Debugging printout
                     System.out.print("#" + internalID + " | " + q.documentId + " | ");
                     for (Minister m : q.getMinisters()) {
                         System.out.println(m.ministerPersonId);
@@ -43,8 +45,8 @@ public class APIIngest {
                     applyQuestionFields(extant, node);
 
                     internalID++;
-                    
-                    //Debugging printout
+
+                    // Debugging printout
                     System.out.print(
                             "%" + internalID + " | " + extant.documentId + " | ");
                     for (Minister m : extant.getMinisters()) {
@@ -85,7 +87,7 @@ public class APIIngest {
         q.setQuestionText(node.path("QuestionText").asText());
         q.setAnswerByDate(node.path("AnswerByDate").asText());
         q.setPriorityRequest(node.path("PriorityRequest").asText());
-        q.setMinister(applyMinisterFields(q, node));
+        q.addMinister(applyMinisterFields(q, node));
         q.setDepartment(node.path("Department").asText());
         q.setDepartmentID(node.path("DepartmentID").asText());
         q.setAnswerPlainText(node.path("AnswerPlainText").asText());
