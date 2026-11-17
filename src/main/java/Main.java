@@ -16,7 +16,7 @@ public class Main {
         LocalDate TabledStartDate = LocalDate.now().minusDays(2); // minus n days (for testing)
 
         LocalDate AnsweredEndDate = LocalDate.now(); // returns today as the most recent day
-        LocalDate AnsweredStartDate = LocalDate.now().minusDays(2); // minus n days (for testing)
+        LocalDate AnsweredStartDate = LocalDate.now().minusDays(200); // minus n days (for testing)
 
         Map<Integer, Question> questionMap = new HashMap<>();
 

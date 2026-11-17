@@ -42,3 +42,6 @@ bin/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Generated output
+questions.json
