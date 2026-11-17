@@ -31,37 +31,39 @@ public class APIIngest {
                     applyQuestionFields(q, node);
                     questionMap.put(key, q);
 
-                    internalID++;
+                    // internalID++;
 
-                    // Debugging printout
-                    System.out.print("#" + internalID + " | " + q.documentId + " | ");
-                    for (Minister m : q.getMinisters()) {
-                        System.out.println(m.ministerPersonId);
-                    }
+                    // // Debugging printout
+                    // System.out.print("#" + internalID + " | " + q.documentId + " | ");
+                    // for (Minister m : q.getMinisters()) {
+                    // System.out.println(m.ministerPersonId);
+                    // }
 
                 } else {
                     // finds extant instance of Question at given key
                     Question extant = questionMap.get(key);
                     applyQuestionFields(extant, node);
 
-                    internalID++;
+                    // internalID++;
 
                     // Debugging printout
-                    System.out.print(
-                            "!!" + internalID + " | " + extant.documentId + " | ");
-                    for (Minister m : extant.getMinisters()) {
-                        System.out.print(m.ministerPersonId + " ");
-                    }
-                    if (extant.answerPlainText != null) {
-                        System.out.print(
-                                extant.answerPlainText.substring(0, Math.min(54, extant.answerPlainText.length())));
-                    } else {
-                        System.out.println(" - (present on, but no answer from, AnswerByAPI)");
-                    }
+                    // System.out.print(
+                    // "!!" + internalID + " | " + extant.documentId + " | ");
+                    // for (Minister m : extant.getMinisters()) {
+                    // System.out.print(m.ministerPersonId + " ");
+                    // }
+                    // if (extant.answerPlainText != null) {
+                    // System.out.print(
+                    // extant.answerPlainText.substring(0, Math.min(54,
+                    // extant.answerPlainText.length())));
+                    // } else {
+                    // System.out.println(" - (present on, but no answer from, AnswerByAPI)");
                 }
             }
         }
+
         return questionMap;
+        
     }
 
     // creates a Minister
@@ -112,7 +114,7 @@ public class APIIngest {
 
         // Boolean, false is the default
         q.setPriorityRequest(node.path("PriorityRequest").asText());
-       
+
         if (SetterHelperMethods.isMissing(q.getDepartment())) {
             q.setDepartment(node.path("Department").asText());
         }
@@ -129,7 +131,7 @@ public class APIIngest {
             q.setAnswerHtml(node.path("AnswerHtml").asText());
         }
 
-        //Any number of ministers can be added, so no need to limit insert
+        // Any number of ministers can be added, so no need to limit insert
         q.addMinister(applyMinisterFields(q, node));
     }
 }
