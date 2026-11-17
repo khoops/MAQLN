@@ -18,6 +18,10 @@ public class APIIngest {
 
         try (InputStream questionData = connection.getInputStream()) {
             JsonNode root = mapper.readTree(questionData); // determines the highest level node in the schema
+            if (root.has("Error")) {
+                throw new IOException("API error for " + apiUrl + ": " + root.path("Error").asText());
+            } // to flag errors as they occur
+
             JsonNode questions = root.path("QuestionsList").path("Question");
 
             // Internal ID for internal use only
@@ -63,7 +67,7 @@ public class APIIngest {
         }
 
         return questionMap;
-        
+
     }
 
     // creates a Minister
