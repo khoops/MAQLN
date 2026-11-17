@@ -16,7 +16,7 @@ public class SetterHelperMethods {
 
     // for Answer related fields which may be missing until answered
      static boolean isMissing(String value) {
-        return value == null || value.isBlank();
+        return value == null || value.isBlank() || value.equals(0);
     }
 
      static int parseInt(String field, String value) {

@@ -9,11 +9,14 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
+        //Start of the 7th assembly
+        LocalDate assemblyStart = LocalDate.of(2022, 5, 1);
+
         LocalDate TabledEndDate = LocalDate.now(); // returns today as the most recent day
-        LocalDate TabledStartDate = LocalDate.now().minusDays(20); // minus n days (for testing)
+        LocalDate TabledStartDate = LocalDate.now().minusDays(2); // minus n days (for testing)
 
         LocalDate AnsweredEndDate = LocalDate.now(); // returns today as the most recent day
-        LocalDate AnsweredStartDate = LocalDate.now().minusDays(20); // minus n days (for testing)
+        LocalDate AnsweredStartDate = LocalDate.now().minusDays(2); // minus n days (for testing)
 
         Map<Integer, Question> questionMap = new HashMap<>();
 
@@ -28,6 +31,8 @@ public class Main {
         URL AnsweredUrl = new URL(AnsweredApi);
         APIIngest.fetchQuestionDetails(questionMap, AnsweredUrl);
         System.out.println(AnsweredApi);
+
+        Print.printToJSON(questionMap);
 
         System.out.println("OK?*******************");
     }

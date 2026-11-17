@@ -23,6 +23,7 @@ public class Minister {
         return ministerPersonId;
     }
 
+    ///should prevent multiple of the same minister accumulating every time upsert occurs
     public void setMinisterPersonId(String ministerPersonId) {
         this.ministerPersonId = SetterHelperMethods.isMissing(ministerPersonId) ? 0
                 : SetterHelperMethods.parseInt("MinisterAffiliateionId", ministerPersonId);

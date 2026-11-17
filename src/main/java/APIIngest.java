@@ -48,12 +48,13 @@ public class APIIngest {
 
                     // Debugging printout
                     System.out.print(
-                            "%" + internalID + " | " + extant.documentId + " | ");
+                            "!!" + internalID + " | " + extant.documentId + " | ");
                     for (Minister m : extant.getMinisters()) {
                         System.out.print(m.ministerPersonId + " ");
                     }
                     if (extant.answerPlainText != null) {
-                        System.out.print(extant.answerPlainText.substring(0, 54));
+                        System.out.print(
+                                extant.answerPlainText.substring(0, Math.min(54, extant.answerPlainText.length())));
                     } else {
                         System.out.println(" - (present on, but no answer from, AnswerByAPI)");
                     }
@@ -75,9 +76,9 @@ public class APIIngest {
     // Maps JSON fields to the setters.
 
     private static void applyQuestionFields(Question q, JsonNode node) {
+
         q.setDocumentId(node.path("DocumentId").asText());
-        // Only write a field if it is still empty on the stored Question:
-        // null for String/LocalDate, 0 for int, false for boolean.
+
         if (SetterHelperMethods.isMissing(q.getDocumentType())) {
             q.setDocumentType(node.path("DocumentType").asText());
         }
@@ -90,34 +91,32 @@ public class APIIngest {
         if (SetterHelperMethods.isMissing(q.getTablerTitle())) {
             q.setTablerTitle(node.path("TablerTitle").asText());
         }
-        if (q.getTablerAffiliationId() == 0) {
+        if ((q.getTablerAffiliationId() == 0)) {
             q.setTablerAffiliationId(node.path("TablerAffiliationId").asText());
         }
-        if (q.getTablerPersonId() == 0) {
+        if ((q.getTablerPersonId() == 0)) {
             q.setTablerPersonId(node.path("TablerPersonId").asText());
         }
-        if (q.getTabledDate() == null) {
+        if ((q.getTabledDate() == null)) {
             q.setTabledDate(node.path("TabledDate").asText());
         }
-        if (q.getAnsweredOnDate() == null) {
+        if ((q.getAnsweredOnDate() == null)) {
             q.setAnsweredOnDate(node.path("AnsweredOnDate").asText());
         }
         if (SetterHelperMethods.isMissing(q.getQuestionText())) {
             q.setQuestionText(node.path("QuestionText").asText());
         }
-        if (q.getAnswerByDate() == null) {
+        if ((q.getAnswerByDate() == null)) {
             q.setAnswerByDate(node.path("AnswerByDate").asText());
         }
-        // a boolean has no empty value, so false is treated as not yet set
-        if (!q.isPriorityRequest()) {
-            q.setPriorityRequest(node.path("PriorityRequest").asText());
-        }
-        // the ministers list has its own duplicate check, so always offer the minister
-        q.addMinister(applyMinisterFields(q, node));
+
+        // Boolean, false is the default
+        q.setPriorityRequest(node.path("PriorityRequest").asText());
+       
         if (SetterHelperMethods.isMissing(q.getDepartment())) {
             q.setDepartment(node.path("Department").asText());
         }
-        if (q.getDepartmentID() == 0) {
+        if ((q.getDepartmentID() == 0)) {
             q.setDepartmentID(node.path("DepartmentID").asText());
         }
         if (SetterHelperMethods.isMissing(q.getAnswerPlainText())) {
@@ -129,6 +128,8 @@ public class APIIngest {
         if (SetterHelperMethods.isMissing(q.getAnswerHtml())) {
             q.setAnswerHtml(node.path("AnswerHtml").asText());
         }
-    }
 
+        //Any number of ministers can be added, so no need to limit insert
+        q.addMinister(applyMinisterFields(q, node));
+    }
 }
