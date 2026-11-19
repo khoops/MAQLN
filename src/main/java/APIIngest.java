@@ -18,10 +18,11 @@ public class APIIngest {
             throws IOException {
 
         HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
-        connection.setConnectTimeout(10_000); 
-        connection.setReadTimeout(30_000); 
+        connection.setConnectTimeout(10_000);
+        connection.setReadTimeout(130_000);
         connection.setRequestProperty("User-Agent",
-                "MAQLN project (+mailto:"+DiscreteVariables.myEmail+"; initial data import and limited updates)"); //identifies me to the API owner
+                "MAQLN project (+mailto:" + DiscreteVariables.myEmail + "; initial data import and limited updates)"); 
+                // identifies me to the APi owner in the log                                                                                                        // me
         connection.setRequestProperty("From", DiscreteVariables.myEmail);
         connection.setRequestProperty("Accept", "application/json");
 
@@ -51,7 +52,7 @@ public class APIIngest {
                     applyQuestionFields(q, node);
                     questionMap.put(key, q);
 
-                    // internalID++;
+                    internalID++;
 
                     // // Debugging printout
                     // System.out.print("#" + internalID + " | " + q.documentId + " | ");
@@ -81,7 +82,6 @@ public class APIIngest {
                 }
             }
         }
-
         return questionMap;
 
     }
