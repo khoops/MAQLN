@@ -21,8 +21,8 @@ public class APIIngest {
         connection.setConnectTimeout(10_000); 
         connection.setReadTimeout(30_000); 
         connection.setRequestProperty("User-Agent",
-                "MAQLN project (+mailto:dmcclune04@qub.ac.uk; initial data import and limited updates)");
-        connection.setRequestProperty("From", "dmcclune04@qub.ac.uk");
+                "MAQLN project (+mailto:"+DiscreteVariables.myEmail+"; initial data import and limited updates)"); //identifies me to the API owner
+        connection.setRequestProperty("From", DiscreteVariables.myEmail);
         connection.setRequestProperty("Accept", "application/json");
 
         int status = connection.getResponseCode();

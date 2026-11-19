@@ -45,3 +45,6 @@ Thumbs.db
 
 # Generated output
 questions.json
+
+#Private info
+DiscreteVariables.java
