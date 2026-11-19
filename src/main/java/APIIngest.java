@@ -1,7 +1,12 @@
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.time.Duration;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -12,7 +17,18 @@ public class APIIngest {
     public static Map<Integer, Question> fetchQuestionDetails(Map<Integer, Question> questionMap, URL apiUrl)
             throws IOException {
 
-        URLConnection connection = apiUrl.openConnection();
+        HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
+        connection.setConnectTimeout(10_000); 
+        connection.setReadTimeout(30_000); 
+        connection.setRequestProperty("User-Agent",
+                "MAQLN project (+mailto:dmcclune04@qub.ac.uk; initial data import and limited updates)");
+        connection.setRequestProperty("From", "dmcclune04@qub.ac.uk");
+        connection.setRequestProperty("Accept", "application/json");
+
+        int status = connection.getResponseCode();
+        if (status != 200) {
+            throw new IOException("HTTP " + status + " for " + apiUrl);
+        }
 
         ObjectMapper mapper = new ObjectMapper();
 
